@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  BadRequestException,
 } from "@nestjs/common";
 import { DoctorService } from "./doctor.service";
 import { CreateDoctorDto } from "./dto/create-doctor.dto";
@@ -45,5 +46,10 @@ export class DoctorController {
   @ApiOperation({ summary: "Shifokorni o'chirish" })
   remove(@Param("id") id: string) {
     return this.doctorService.remove(+id);
+  }
+
+  @Get("activate/:link")
+  activate(@Param("link") link: string) {
+    return this.doctorService.activate(link);
   }
 }

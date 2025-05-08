@@ -38,4 +38,9 @@ export class AdminController {
   remove(@Param("id") id: string) {
     return this.adminService.remove(+id);
   }
+
+  @Get("activate/:link")
+  activate(@Param("link") link: string) {
+    return this.adminService.activate(link);
+  }
 }

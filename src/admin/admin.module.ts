@@ -3,10 +3,12 @@ import { AdminService } from './admin.service';
 import { AdminController } from './admin.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Admin } from './models/admin.model';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Admin])],
+  imports: [SequelizeModule.forFeature([Admin]), MailModule],
   controllers: [AdminController],
-  providers: [AdminService],
+  providers: [AdminService, MailModule],
+  exports: [AdminService],
 })
 export class AdminModule {}

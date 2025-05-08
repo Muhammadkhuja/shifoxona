@@ -46,4 +46,9 @@ export class StaffController {
   remove(@Param("id") id: string) {
     return this.staffService.remove(+id);
   }
+
+  @Get("activate/:link")
+  activateStaff(@Param("link") link: string) {
+    return this.staffService.activateStaff(link);
+  }
 }

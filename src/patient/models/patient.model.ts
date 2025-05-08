@@ -15,7 +15,7 @@ export interface IPatientCreateAttr {
 @Table({ tableName: "patient", timestamps: false })
 export class Patient extends Model<Patient, IPatientCreateAttr> {
   @Column({
-    type: DataType.BIGINT,
+    type: DataType.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   })
@@ -50,4 +50,10 @@ export class Patient extends Model<Patient, IPatientCreateAttr> {
 
   @Column({ type: DataType.STRING })
   declare refresh_token: string;
+
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  declare is_active: boolean;
+
+  @Column({ type: DataType.STRING, defaultValue: DataType.UUIDV4() })
+  declare activate_link: string;
 }

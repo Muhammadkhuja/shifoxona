@@ -3,10 +3,12 @@ import { StaffService } from './staff.service';
 import { StaffController } from './staff.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Staff } from './models/staff.model';
+import { MailService } from '../mail/mail.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([Staff])],
   controllers: [StaffController],
-  providers: [StaffService],
+  providers: [StaffService, MailService],
+  exports: [StaffService]
 })
 export class StaffModule {}

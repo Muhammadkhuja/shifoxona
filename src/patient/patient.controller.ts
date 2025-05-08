@@ -46,4 +46,9 @@ export class PatientController {
   remove(@Param("id") id: string) {
     return this.patientService.remove(+id);
   }
+
+  @Get("activate/:link")
+  activate(@Param("link") link: string) {
+    return this.patientService.activate(link);
+  }
 }

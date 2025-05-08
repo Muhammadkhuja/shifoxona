@@ -1,16 +1,21 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
-import { AdminModule } from './admin/admin.module';
-import { StaffModule } from './staff/staff.module';
-import { PatientModule } from './patient/patient.module';
-import { DoctorModule } from './doctor/doctor.module';
-import { PaymentModule } from './payment/payment.module';
-import { AppointmentModule } from './appointment/appointment.module';
-import { PatientdiagnosModule } from './patientdiagnos/patientdiagnos.module';
-import { DiagnosModule } from './diagnos/diagnos.module';
-import { DiagnosmedisineModule } from './diagnosmedisine/diagnosmedisine.module';
-import { MedicationModule } from './medication/medication.module';
+import { AdminModule } from "./admin/admin.module";
+import { StaffModule } from "./staff/staff.module";
+import { PatientModule } from "./patient/patient.module";
+import { DoctorModule } from "./doctor/doctor.module";
+import { PaymentModule } from "./payment/payment.module";
+import { AppointmentModule } from "./appointment/appointment.module";
+import { PatientdiagnosModule } from "./patientdiagnos/patientdiagnos.module";
+import { DiagnosModule } from "./diagnos/diagnos.module";
+import { DiagnosmedisineModule } from "./diagnosmedisine/diagnosmedisine.module";
+import { MedicationModule } from "./medication/medication.module";
+import { Admin } from "./admin/models/admin.model";
+import { Staff } from "./staff/models/staff.model";
+import { Patient } from "./patient/models/patient.model";
+import { Doctor } from "./doctor/models/doctor.model";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -26,7 +31,7 @@ import { MedicationModule } from './medication/medication.module';
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [],
+      models: [Admin, Staff, Patient, Doctor],
       autoLoadModels: true,
       sync: { alter: true },
       logging: true,
@@ -42,6 +47,8 @@ import { MedicationModule } from './medication/medication.module';
     DiagnosModule,
     DiagnosmedisineModule,
     MedicationModule,
+    AuthModule,
+
   ],
   controllers: [],
   providers: [],

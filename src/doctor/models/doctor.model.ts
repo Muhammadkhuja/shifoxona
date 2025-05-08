@@ -34,4 +34,10 @@ export class Doctor extends Model<Doctor, IDoctorCreateAttr> {
 
   @Column({ type: DataType.STRING })
   declare refresh_token: string;
+
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  declare is_active: boolean;
+
+  @Column({ type: DataType.STRING, defaultValue: DataType.UUIDV4() })
+  declare activate_link: string;
 }
