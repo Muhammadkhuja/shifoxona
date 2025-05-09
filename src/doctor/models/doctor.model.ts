@@ -1,4 +1,7 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { Table, Column, Model, DataType, HasMany } from "sequelize-typescript";
+import { Appointment } from "../../appointment/models/appointment.model";
+import { PatientDiagnos } from "../../patientdiagnos/models/patientdiagno.model";
+import { Diagnos } from "../../diagnos/models/diagno.model";
 
 export interface IDoctorCreateAttr {
   full_name: string;
@@ -40,4 +43,13 @@ export class Doctor extends Model<Doctor, IDoctorCreateAttr> {
 
   @Column({ type: DataType.STRING, defaultValue: DataType.UUIDV4() })
   declare activate_link: string;
+
+  @HasMany(() => Appointment)
+  appointment: Appointment[];
+
+  @HasMany(() => PatientDiagnos)
+  patientdiagnos: PatientDiagnos;
+
+  @HasMany(() => Diagnos)
+  diagnos: Diagnos;
 }

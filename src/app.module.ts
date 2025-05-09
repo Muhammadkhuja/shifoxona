@@ -16,6 +16,12 @@ import { Staff } from "./staff/models/staff.model";
 import { Patient } from "./patient/models/patient.model";
 import { Doctor } from "./doctor/models/doctor.model";
 import { AuthModule } from "./auth/auth.module";
+import { Appointment } from "./appointment/models/appointment.model";
+import { PatientDiagnos } from "./patientdiagnos/models/patientdiagno.model";
+import { Diagnos } from "./diagnos/models/diagno.model";
+import { Payment } from "./payment/models/payment.model";
+import { DiagnosMedisine } from "./diagnosmedisine/models/diagnosmedisine.model";
+import { Medication } from "./medication/models/medication.model";
 
 @Module({
   imports: [
@@ -31,7 +37,7 @@ import { AuthModule } from "./auth/auth.module";
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [Admin, Staff, Patient, Doctor],
+      models: [Admin, Staff, Patient, Doctor,Appointment, PatientDiagnos, Diagnos,Payment,DiagnosMedisine, Medication],
       autoLoadModels: true,
       sync: { alter: true },
       logging: true,

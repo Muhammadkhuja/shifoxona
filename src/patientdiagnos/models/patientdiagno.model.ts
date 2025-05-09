@@ -3,7 +3,12 @@ import {
   Column,
   Model,
   DataType,
+  ForeignKey,
+  BelongsTo,
 } from "sequelize-typescript";
+import { Patient } from "../../patient/models/patient.model";
+import { Diagnos } from "../../diagnos/models/diagno.model";
+import { Doctor } from "../../doctor/models/doctor.model";
 
 export interface IPatientDiagnosCreateAttr {
   patientId: number;
@@ -24,17 +29,26 @@ export class PatientDiagnos extends Model<
   })
   declare id: number;
 
-//   @ForeignKey(() => Patient)
+  @ForeignKey(() => Patient)
   @Column({ type: DataType.BIGINT })
   declare patientId: number;
 
-//   @ForeignKey(() => Diagnos)
+  @BelongsTo(() => Patient)
+  patient: Patient;
+
+  @ForeignKey(() => Diagnos)
   @Column({ type: DataType.BIGINT })
   declare diagnosId: number;
 
-//   @ForeignKey(() => Doctor)
+  @BelongsTo(() => Diagnos)
+  diadnos: Diagnos;
+
+  @ForeignKey(() => Doctor)
   @Column({ type: DataType.BIGINT })
   declare doctorId: number;
+
+  @BelongsTo(() => Doctor)
+  dostor: Doctor;
 
   @Column({ type: DataType.DATE })
   declare diagnos_date: Date;

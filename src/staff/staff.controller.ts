@@ -38,9 +38,9 @@ export class StaffController {
     return this.staffService.findAll();
   }
 
-  // @UseGuards(SelfStaffGuard)
-  // @UseGuards(StaffGuard)
-  // @UseGuards(AuthGuard)
+  @UseGuards(SelfStaffGuard)
+  @UseGuards(StaffGuard)
+  @UseGuards(AuthGuard)
   @Get(":id")
   @ApiOperation({ summary: "Bitta hodimni ID orqali olish" })
   @ApiResponse({ status: 200, description: "Topilgan hodim ma'lumoti" })

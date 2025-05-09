@@ -1,4 +1,6 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import { Table, Column, Model, DataType, HasMany } from "sequelize-typescript";
+import { Appointment } from "../../appointment/models/appointment.model";
+import { PatientDiagnos } from "../../patientdiagnos/models/patientdiagno.model";
 
 export interface IPatientCreateAttr {
   full_name: string;
@@ -56,4 +58,10 @@ export class Patient extends Model<Patient, IPatientCreateAttr> {
 
   @Column({ type: DataType.STRING, defaultValue: DataType.UUIDV4() })
   declare activate_link: string;
+
+  @HasMany(() => Appointment)
+  appointment: Appointment[];
+
+  @HasMany(() => PatientDiagnos)
+  patientdiagnos: PatientDiagnos;
 }

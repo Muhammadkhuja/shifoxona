@@ -1,4 +1,17 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  HasMany,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany,
+} from "sequelize-typescript";
+import { PatientDiagnos } from "../../patientdiagnos/models/patientdiagno.model";
+import { Doctor } from "../../doctor/models/doctor.model";
+import { DiagnosMedisine } from "../../diagnosmedisine/models/diagnosmedisine.model";
+import { Medication } from "../../medication/models/medication.model";
 
 export interface IDiagnosCreateAttr {
   diagnos_code: string;
@@ -24,6 +37,16 @@ export class Diagnos extends Model<Diagnos, IDiagnosCreateAttr> {
   @Column({ type: DataType.STRING })
   declare description: string;
 
+  @ForeignKey(() => Doctor)
   @Column({ type: DataType.BIGINT })
-  declare created_by: number;
+  declare createdId: number;
+
+  @BelongsTo(() => Doctor)
+  doctor: Doctor;
+
+  @HasMany(() => PatientDiagnos)
+  patientdiagnos: PatientDiagnos;
+
+  @BelongsToMany(() => Medication, () => DiagnosMedisine)
+  ddd: DiagnosMedisine;
 }

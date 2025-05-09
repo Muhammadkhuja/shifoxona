@@ -8,5 +8,6 @@ import { DiagnosMedisineService } from './diagnosmedisine.service';
   imports: [SequelizeModule.forFeature([DiagnosMedisine])],
   controllers: [DiagnosmedisineController],
   providers: [DiagnosMedisineService],
+  exports: [DiagnosMedisineService]
 })
 export class DiagnosmedisineModule {}

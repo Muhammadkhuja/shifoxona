@@ -3,7 +3,10 @@ import {
   Column,
   Model,
   DataType,
+  ForeignKey,
+  BelongsTo,
 } from "sequelize-typescript";
+import { Appointment } from "../../appointment/models/appointment.model";
 
 export interface IPaymentCreateAttr {
   appointmentId: number;
@@ -21,9 +24,12 @@ export class Payment extends Model<Payment, IPaymentCreateAttr> {
   })
   declare id: number;
 
-  //   @ForeignKey(() => Appointment)
+  @ForeignKey(() => Appointment)
   @Column({ type: DataType.BIGINT })
   declare appointmentId: number;
+
+  @BelongsTo(() => Appointment)
+  appointment: Appointment;
 
   @Column({ type: DataType.BIGINT })
   declare amount: number;

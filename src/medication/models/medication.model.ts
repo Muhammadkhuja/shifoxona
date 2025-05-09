@@ -1,4 +1,13 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  BelongsTo,
+  BelongsToMany,
+} from "sequelize-typescript";
+import { DiagnosMedisine } from "../../diagnosmedisine/models/diagnosmedisine.model";
+import { Diagnos } from "../../diagnos/models/diagno.model";
 
 export interface IMedicationCreateAttr {
   name: string;
@@ -27,4 +36,7 @@ export class Medication extends Model<Medication, IMedicationCreateAttr> {
 
   @Column({ type: DataType.STRING })
   declare price: string;
+
+  @BelongsToMany(() => Diagnos, () => DiagnosMedisine)
+  ddd: DiagnosMedisine;
 }

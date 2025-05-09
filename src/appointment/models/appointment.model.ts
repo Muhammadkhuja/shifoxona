@@ -3,7 +3,13 @@ import {
   Column,
   Model,
   DataType,
+  HasMany,
+  ForeignKey,
+  BelongsTo,
 } from "sequelize-typescript";
+import { Payment } from "../../payment/models/payment.model";
+import { Patient } from "../../patient/models/patient.model";
+import { Doctor } from "../../doctor/models/doctor.model";
 
 export interface IAppointmentCreateAttr {
   patientId: number;
@@ -21,13 +27,19 @@ export class Appointment extends Model<Appointment, IAppointmentCreateAttr> {
   })
   declare id: number;
 
-//   @ForeignKey(() => Patient)
+  @ForeignKey(() => Patient)
   @Column({ type: DataType.BIGINT })
   declare patientId: number;
 
-//   @ForeignKey(() => Doctor)
+  @BelongsTo(() => Patient)
+  patient: Patient;
+
+  @ForeignKey(() => Doctor)
   @Column({ type: DataType.BIGINT })
   declare doctorId: number;
+
+  @BelongsTo(() => Doctor)
+  doctor: Doctor;
 
   @Column({ type: DataType.DATE })
   declare appointment_date: Date;
@@ -37,4 +49,7 @@ export class Appointment extends Model<Appointment, IAppointmentCreateAttr> {
 
   @Column({ type: DataType.STRING })
   declare status: string;
+
+  @HasMany(() => Payment)
+  payment: Payment[];
 }
