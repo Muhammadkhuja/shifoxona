@@ -14,14 +14,19 @@ import { UpdateStaffDto } from "./dto/update-staff.dto";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { SelfStaffGuard } from "../common/guards/selfstaff.guard";
 import { StaffGuard } from "../common/guards/staff.guard";
-import { AdminGuard } from "../common/guards/admin.guard";
 import { AuthGuard } from "../common/guards/auth.guard";
+import { JwtRolesGuard } from "../common/guards/roles.guard";
+import { Roles } from "../common/decorators/rolesauth.decorator";
+import { AdminGuard } from "../common/guards/admin.guard";
 
 @ApiTags("Staff - Hodimlar")
 @Controller("staff")
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
 
+  @Roles("admin", "satff")
+  @UseGuards(JwtRolesGuard)
+  @UseGuards(AuthGuard)
   @Post()
   @ApiOperation({ summary: "Yangi hodim qo'shish" })
   @ApiResponse({ status: 201, description: "Hodim muvaffaqiyatli yaratildi" })
@@ -30,7 +35,9 @@ export class StaffController {
     return this.staffService.create(createStaffDto);
   }
 
-
+  @Roles("admin", "staff")
+  @UseGuards(JwtRolesGuard)
+  @UseGuards(AuthGuard)
   @Get()
   @ApiOperation({ summary: "Barcha hodimlarni olish" })
   @ApiResponse({ status: 200, description: "Hodimlar ro'yxati qaytarildi" })
@@ -39,7 +46,6 @@ export class StaffController {
   }
 
   @UseGuards(SelfStaffGuard)
-  @UseGuards(StaffGuard)
   @UseGuards(AuthGuard)
   @Get(":id")
   @ApiOperation({ summary: "Bitta hodimni ID orqali olish" })
@@ -49,6 +55,9 @@ export class StaffController {
     return this.staffService.findOne(+id);
   }
 
+  @UseGuards(AuthGuard)
+  @Roles("admin", "staff")
+  @UseGuards(JwtRolesGuard)
   @Patch(":id")
   @ApiOperation({ summary: "Hodim ma'lumotlarini yangilash" })
   @ApiResponse({ status: 200, description: "Hodim yangilandi" })
@@ -60,6 +69,8 @@ export class StaffController {
     return this.staffService.update(+id, updateStaffDto);
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Delete(":id")
   @ApiOperation({ summary: "Hodimni o'chirish" })
   @ApiResponse({ status: 200, description: "Hodim o'chirildi" })

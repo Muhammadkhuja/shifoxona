@@ -23,6 +23,7 @@ export interface IAppointmentCreateAttr {
 export class Appointment extends Model<Appointment, IAppointmentCreateAttr> {
   @Column({
     type: DataType.BIGINT,
+    autoIncrement: true,
     primaryKey: true,
   })
   declare id: number;

@@ -19,7 +19,7 @@ export interface IMedicationCreateAttr {
 
 @Table({ tableName: "medication", timestamps: false })
 export class Medication extends Model<Medication, IMedicationCreateAttr> {
-  @Column({ type: DataType.BIGINT, primaryKey: true })
+  @Column({ type: DataType.BIGINT, autoIncrement: true, primaryKey: true })
   declare id: number;
 
   @Column({ type: DataType.STRING })

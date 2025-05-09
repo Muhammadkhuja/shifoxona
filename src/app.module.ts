@@ -40,7 +40,7 @@ import { Medication } from "./medication/models/medication.model";
       models: [Admin, Staff, Patient, Doctor,Appointment, PatientDiagnos, Diagnos,Payment,DiagnosMedisine, Medication],
       autoLoadModels: true,
       sync: { alter: true },
-      logging: true,
+      logging: false,
     }),
 
     AdminModule,

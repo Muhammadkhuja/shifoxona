@@ -6,17 +6,26 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from "@nestjs/common";
 import { AppointmentService } from "./appointment.service";
 import { CreateAppointmentDto } from "./dto/create-appointment.dto";
 import { UpdateAppointmentDto } from "./dto/update-appointment.dto";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { AuthGuard } from "../common/guards/auth.guard";
+import { JwtRolesGuard } from "../common/guards/roles.guard";
+import { Roles } from "../common/decorators/rolesauth.decorator";
+import { SelfPatientGuard } from "../common/guards/selfpatient.guard";
+import { AdminGuard } from "../common/guards/admin.guard";
 
 @ApiTags("Appointment - Qabul qilishlar")
 @Controller("appointment")
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
+  @UseGuards(AuthGuard)
+  @UseGuards(JwtRolesGuard)
+  @Roles("doctor", "patient", "admin")
   @Post()
   @ApiOperation({ summary: "Yangi qabul qo'shish" })
   @ApiResponse({
@@ -29,6 +38,9 @@ export class AppointmentController {
     return this.appointmentService.create(createAppointmentDto);
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(JwtRolesGuard)
+  @Roles("doctor", "admin")
   @Get()
   @ApiOperation({ summary: "Barcha qabul qilishlarni olish" })
   @ApiResponse({
@@ -40,6 +52,9 @@ export class AppointmentController {
     return this.appointmentService.findAll();
   }
 
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
+  @UseGuards(SelfPatientGuard)
   @Get(":id")
   @ApiOperation({ summary: "Qabulni ID orqali olish" })
   @ApiResponse({
@@ -52,6 +67,8 @@ export class AppointmentController {
     return this.appointmentService.findOne(+id);
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Patch(":id")
   @ApiOperation({ summary: "Qabul malumotlarini yangilash" })
   @ApiResponse({
@@ -67,6 +84,8 @@ export class AppointmentController {
     return this.appointmentService.update(+id, updateAppointmentDto);
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Delete(":id")
   @ApiOperation({ summary: "Qabulni ochirish" })
   @ApiResponse({

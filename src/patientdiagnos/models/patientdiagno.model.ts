@@ -25,6 +25,7 @@ export class PatientDiagnos extends Model<
 > {
   @Column({
     type: DataType.BIGINT,
+    autoIncrement: true,
     primaryKey: true,
   })
   declare id: number;

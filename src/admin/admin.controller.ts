@@ -6,17 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from "@nestjs/common";
 import { AdminService } from "./admin.service";
 import { CreateAdminDto } from "./dto/create-admin.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
 import { ApiOperation, ApiTags, ApiResponse } from "@nestjs/swagger";
+import { AuthGuard } from "../common/guards/auth.guard";
+import { AdminGuard } from "../common/guards/admin.guard";
+import { SelfAdminGuard } from "../common/guards/selfadmin.guard";
 
 @ApiTags("Admin-Administratorlar")
 @Controller("admin")
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
+  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Post()
   @ApiOperation({ summary: "Admin qo'shish" })
   @ApiResponse({
@@ -29,6 +35,8 @@ export class AdminController {
     return this.adminService.create(createAdminDto);
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Get()
   @ApiOperation({ summary: "Admin olish" })
   @ApiResponse({
@@ -40,6 +48,8 @@ export class AdminController {
     return this.adminService.findAll();
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(SelfAdminGuard)
   @Get(":id")
   @ApiOperation({ summary: "Admin olish" })
   @ApiResponse({
@@ -52,6 +62,8 @@ export class AdminController {
     return this.adminService.findOne(+id);
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Patch(":id")
   @ApiOperation({ summary: "Adminni taxrirlash" })
   @ApiResponse({
@@ -64,6 +76,8 @@ export class AdminController {
     return this.adminService.update(+id, updateAdminDto);
   }
 
+  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @Delete(":id")
   @ApiOperation({ summary: "Adminni o'chirish" })
   @ApiResponse({

@@ -17,13 +17,14 @@ export interface IDiagnosCreateAttr {
   diagnos_code: string;
   diagnos: string;
   description: string;
-  created_by: number;
+  createdId: number;
 }
 
 @Table({ tableName: "diagnos", timestamps: false })
 export class Diagnos extends Model<Diagnos, IDiagnosCreateAttr> {
   @Column({
     type: DataType.BIGINT,
+    autoIncrement: true,
     primaryKey: true,
   })
   declare id: number;
