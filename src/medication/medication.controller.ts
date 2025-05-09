@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from "@nestjs/common";
 import { MedicationService } from "./medication.service";
 import { CreateMedicationDto } from "./dto/create-medication.dto";
 import { UpdateMedicationDto } from "./dto/update-medication.dto";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { AdminGuard } from "../common/guards/admin.guard";
+import { AuthGuard } from "../common/guards/auth.guard";
 
 @ApiTags("Medication - Dori-darmonlar")
 @Controller("medication")
@@ -18,6 +21,8 @@ export class MedicationController {
   constructor(private readonly medicationService: MedicationService) {}
 
   @Post()
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Yangi dori-darmon qo'shish" })
   @ApiResponse({
     status: 201,
@@ -32,6 +37,8 @@ export class MedicationController {
   }
 
   @Get()
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Barcha dori-darmonlarni olish" })
   @ApiResponse({
     status: 200,
@@ -42,6 +49,8 @@ export class MedicationController {
   }
 
   @Get(":id")
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Dori-darmonni ID orqali olish" })
   @ApiResponse({
     status: 200,
@@ -53,6 +62,8 @@ export class MedicationController {
   }
 
   @Patch(":id")
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Dori-darmon ma'lumotlarini yangilash" })
   @ApiResponse({
     status: 200,
@@ -70,6 +81,8 @@ export class MedicationController {
   }
 
   @Delete(":id")
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Dori-darmonni o'chirish" })
   @ApiResponse({
     status: 200,

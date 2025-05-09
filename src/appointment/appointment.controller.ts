@@ -23,10 +23,10 @@ import { AdminGuard } from "../common/guards/admin.guard";
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
-  @UseGuards(AuthGuard)
-  @UseGuards(JwtRolesGuard)
-  @Roles("doctor", "patient", "admin")
   @Post()
+  @Roles("doctor", "patient", "admin")
+  @UseGuards(JwtRolesGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Yangi qabul qo'shish" })
   @ApiResponse({
     status: 201,
@@ -38,10 +38,10 @@ export class AppointmentController {
     return this.appointmentService.create(createAppointmentDto);
   }
 
-  @UseGuards(AuthGuard)
-  @UseGuards(JwtRolesGuard)
-  @Roles("doctor", "admin")
   @Get()
+  @Roles("doctor", "admin")
+  @UseGuards(JwtRolesGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Barcha qabul qilishlarni olish" })
   @ApiResponse({
     status: 200,
@@ -52,9 +52,9 @@ export class AppointmentController {
     return this.appointmentService.findAll();
   }
 
+  @UseGuards(SelfPatientGuard)
   @UseGuards(AdminGuard)
   @UseGuards(AuthGuard)
-  @UseGuards(SelfPatientGuard)
   @Get(":id")
   @ApiOperation({ summary: "Qabulni ID orqali olish" })
   @ApiResponse({

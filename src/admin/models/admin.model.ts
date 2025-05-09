@@ -27,7 +27,7 @@ export class Admin extends Model<Admin, IAdminCreateAttr> {
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   declare is_active: boolean;
 
-  @Column({ type: DataType.BOOLEAN, defaultValue: true })
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
   declare is_creater: boolean;
 
   @Column({ type: DataType.STRING })

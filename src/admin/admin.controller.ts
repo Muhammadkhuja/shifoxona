@@ -21,8 +21,8 @@ import { SelfAdminGuard } from "../common/guards/selfadmin.guard";
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @UseGuards(AuthGuard)
-  @UseGuards(AdminGuard)
+  // @UseGuards(AuthGuard)
+  // @UseGuards(AdminGuard)
   @Post()
   @ApiOperation({ summary: "Admin qo'shish" })
   @ApiResponse({
@@ -35,8 +35,8 @@ export class AdminController {
     return this.adminService.create(createAdminDto);
   }
 
-  @UseGuards(AuthGuard)
-  @UseGuards(AdminGuard)
+  // @UseGuards(AuthGuard)
+  // @UseGuards(AdminGuard)
   @Get()
   @ApiOperation({ summary: "Admin olish" })
   @ApiResponse({

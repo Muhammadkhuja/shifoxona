@@ -20,6 +20,13 @@ export class DiagnosMedisine extends Model<
   DiagnosMedisine,
   IDiagnosMedisineCreateAttr
 > {
+  @Column({
+    type: DataType.BIGINT,
+    autoIncrement: true,
+    primaryKey: true,
+  })
+  declare id: number;
+  
   @ForeignKey(() => Diagnos)
   @Column({
     type: DataType.BIGINT,

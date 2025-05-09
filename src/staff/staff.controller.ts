@@ -24,9 +24,9 @@ import { AdminGuard } from "../common/guards/admin.guard";
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
 
-  @Roles("admin", "satff")
-  @UseGuards(JwtRolesGuard)
-  @UseGuards(AuthGuard)
+  // @Roles("admin", "satff")
+  // @UseGuards(JwtRolesGuard)
+  // @UseGuards(AuthGuard)
   @Post()
   @ApiOperation({ summary: "Yangi hodim qo'shish" })
   @ApiResponse({ status: 201, description: "Hodim muvaffaqiyatli yaratildi" })
