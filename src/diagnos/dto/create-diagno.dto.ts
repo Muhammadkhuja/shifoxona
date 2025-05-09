@@ -32,5 +32,5 @@ export class CreateDiagnoDto {
     description: "Ushbu tashxisni yaratgan foydalanuvchi ID raqami",
     type: Number,
   })
-  created_by: number;
+  createdId: number;
 }
