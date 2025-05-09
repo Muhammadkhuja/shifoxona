@@ -28,6 +28,7 @@ export class USAuthService {
       id: staff.id,
       is_active: staff.is_active,
       activation_link: staff.activate_link,
+      role: "staff",
       // full_name: staff.full_name,
       // email: staff.email,
       // phone: staff.phone
@@ -54,6 +55,7 @@ export class USAuthService {
       id: patient.id,
       is_active: patient.is_active,
       activation_link: patient.activate_link,
+      role: "patient",
       // full_name: patient.full_name,
       // email: patient.email
     };

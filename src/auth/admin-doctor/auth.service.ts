@@ -27,7 +27,7 @@ export class ADAuthService {
       id: doctor.id,
       is_active: doctor.is_active,
       activation_link: doctor.activate_link,
-      roel: "doctor",
+      role: "doctor",
       // full_name: doctor.full_name,
       // email: doctor.email,
       // phone: doctor.phone
@@ -54,6 +54,7 @@ export class ADAuthService {
       id: admin.id,
       is_active: admin.is_active,
       is_creater: admin.is_creater,
+      role: "admin",
       // full_name: admin.full_name,
       // email: admin.email
     };
