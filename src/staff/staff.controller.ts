@@ -24,9 +24,9 @@ import { AdminGuard } from "../common/guards/admin.guard";
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
 
-  // @Roles("admin", "satff")
-  // @UseGuards(JwtRolesGuard)
-  // @UseGuards(AuthGuard)
+  @Roles("admin", "satff")
+  @UseGuards(JwtRolesGuard)
+  @UseGuards(AuthGuard)
   @Post()
   @ApiOperation({ summary: "Yangi hodim qo'shish" })
   @ApiResponse({ status: 201, description: "Hodim muvaffaqiyatli yaratildi" })
@@ -55,9 +55,9 @@ export class StaffController {
     return this.staffService.findOne(+id);
   }
 
-  @UseGuards(AuthGuard)
   @Roles("admin", "staff")
   @UseGuards(JwtRolesGuard)
+  @UseGuards(AuthGuard)
   @Patch(":id")
   @ApiOperation({ summary: "Hodim ma'lumotlarini yangilash" })
   @ApiResponse({ status: 200, description: "Hodim yangilandi" })
@@ -69,8 +69,8 @@ export class StaffController {
     return this.staffService.update(+id, updateStaffDto);
   }
 
-  @UseGuards(AuthGuard)
   @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @Delete(":id")
   @ApiOperation({ summary: "Hodimni o'chirish" })
   @ApiResponse({ status: 200, description: "Hodim o'chirildi" })

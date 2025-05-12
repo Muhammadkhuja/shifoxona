@@ -6,11 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from "@nestjs/common";
 import { DoctorService } from "./doctor.service";
 import { CreateDoctorDto } from "./dto/create-doctor.dto";
 import { UpdateDoctorDto } from "./dto/update-doctor.dto";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { AdminGuard } from "../common/guards/admin.guard";
+import { AuthGuard } from "../common/guards/auth.guard";
+import { DoctorGuard } from "../common/guards/doctor.guard";
+import { SelfDoctorGuard } from "../common/guards/selfdoctor.guard";
 
 @ApiTags("Doctor - Shifokorlar")
 @Controller("doctor")
@@ -18,6 +23,8 @@ export class DoctorController {
   constructor(private readonly doctorService: DoctorService) {}
 
   @Post()
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Yangi shifokor qo'shish" })
   @ApiResponse({
     status: 201,
@@ -32,6 +39,8 @@ export class DoctorController {
   }
 
   @Get()
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Barcha shifokorlarni olish" })
   @ApiResponse({
     status: 200,
@@ -42,6 +51,8 @@ export class DoctorController {
   }
 
   @Get(":id")
+  @UseGuards(SelfDoctorGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Shifokorni ID orqali olish" })
   @ApiResponse({ status: 200, description: "Shifokor topildi" })
   @ApiResponse({ status: 404, description: "Shifokor topilmadi" })
@@ -50,6 +61,8 @@ export class DoctorController {
   }
 
   @Patch(":id")
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Shifokor ma'lumotlarini yangilash" })
   @ApiResponse({
     status: 200,
@@ -64,6 +77,8 @@ export class DoctorController {
   }
 
   @Delete(":id")
+  @UseGuards(AdminGuard)
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Shifokorni o'chirish" })
   @ApiResponse({
     status: 200,

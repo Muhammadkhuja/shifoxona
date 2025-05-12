@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
     if (!req.user || req.user.role !== "admin") {
       throw new ForbiddenException({
-        message: "Kirish mumkin bo'lmagan joyga kirdingisiz",
+        message: "Kirish mumkin bo'lmagan joyga kirdingisiz !111",
       });
 
     }

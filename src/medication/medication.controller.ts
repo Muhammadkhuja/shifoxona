@@ -14,6 +14,8 @@ import { UpdateMedicationDto } from "./dto/update-medication.dto";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { AdminGuard } from "../common/guards/admin.guard";
 import { AuthGuard } from "../common/guards/auth.guard";
+import { Roles } from "../common/decorators/rolesauth.decorator";
+import { JwtRolesGuard } from "../common/guards/roles.guard";
 
 @ApiTags("Medication - Dori-darmonlar")
 @Controller("medication")
@@ -37,7 +39,8 @@ export class MedicationController {
   }
 
   @Get()
-  @UseGuards(AdminGuard)
+  @Roles("admin", "doctor", "staff", "patient")
+  @UseGuards(JwtRolesGuard)
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Barcha dori-darmonlarni olish" })
   @ApiResponse({
